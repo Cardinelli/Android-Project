@@ -29,4 +29,8 @@
         android:name="com.example.androidproject.ui.settings.SettingsFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_settings" />
+
+    <action
+        android:id="@+id/action_auth_view_to_fragment_home"
+        app:destination="@id/nav_home" />
 </navigation>
