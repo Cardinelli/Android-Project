@@ -3,7 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_home">
+    app:startDestination="@+id/nav_auth">
+
+
+    <fragment
+        android:id="@+id/nav_auth"
+        android:name="com.example.androidproject.ui.auth.AuthFragment"
+        android:label="@string/auth"
+        tools:layout="@layout/fragment_auth" />
 
     <fragment
         android:id="@+id/nav_home"
@@ -13,13 +20,13 @@
 
     <fragment
         android:id="@+id/nav_favourites"
-        android:name="com.example.androidproject.ui.gallery.GalleryFragment"
+        android:name="com.example.androidproject.ui.favourites.FavouritesFragment"
         android:label="@string/menu_gallery"
         tools:layout="@layout/fragment_favourites" />
 
     <fragment
         android:id="@+id/nav_settings"
-        android:name="com.example.androidproject.ui.slideshow.SlideshowFragment"
+        android:name="com.example.androidproject.ui.settings.SettingsFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_settings" />
 </navigation>
