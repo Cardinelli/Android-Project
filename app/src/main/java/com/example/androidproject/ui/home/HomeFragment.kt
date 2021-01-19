@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.navGraphViewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.androidproject.R
 
@@ -25,10 +26,12 @@ class HomeFragment : Fragment() {
 
         recyclerViewHome = fragmentView.findViewById(R.id.home_recycler_view)
 
+
         homeViewModel.gamesLiveData.observe(viewLifecycleOwner, {
             if (it.isEmpty()) {
                 emptyList<GameInfo>()
             } else {
+                recyclerViewHome.layoutManager = LinearLayoutManager(context)
                 recyclerViewHome.adapter = context?.let { it1 ->
                     HomeRecyclerViewAdapter(
                         it as ArrayList<GameInfo>,
