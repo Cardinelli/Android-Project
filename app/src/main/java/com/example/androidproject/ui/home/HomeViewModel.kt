@@ -19,7 +19,7 @@ class HomeViewModel : ViewModel() {
 
     fun getGames() {
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://rawg-video-games-database.p.rapidapi.com/")
+            .baseUrl("https://my-json-server.typicode.com/Cardinelli/repo/")
             .client(
                 OkHttpClient.Builder()
                     .build()
