@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-data class SavedGame(
+data class Game(
     @ColumnInfo(name = "name") var name: String,
     @ColumnInfo(name = "released") var released: String,
     @ColumnInfo(name = "background_image") var background_image: String,

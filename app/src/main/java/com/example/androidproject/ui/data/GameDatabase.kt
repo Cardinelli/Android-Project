@@ -8,24 +8,24 @@ import com.example.androidproject.ui.home.GameInfo
 
 
 @Database(
-    entities = [GameInfo::class],
+    entities = [Game::class],
     version = 1
 )
-abstract class SavedGameDatabase : RoomDatabase() {
-    abstract fun getSavedGameDao(): SavedGameDao
+abstract class GameDatabase : RoomDatabase() {
+    abstract fun getGameDao(): GameDao
 
     companion object {
         @Volatile
-        private var INSTANCE: SavedGameDatabase? = null
+        private var INSTANCE: GameDatabase? = null
 
-        fun getDatabase(context: Context): SavedGameDatabase {
+        fun getDatabase(context: Context): GameDatabase {
             if (INSTANCE != null) {
                 return INSTANCE!!
             }
 
             synchronized(this) {
                 INSTANCE = Room
-                    .databaseBuilder(context, SavedGameDatabase::class.java, "games_database")
+                    .databaseBuilder(context, GameDatabase::class.java, "game_database")
                     .fallbackToDestructiveMigration()
                     .allowMainThreadQueries()
                     .build()
