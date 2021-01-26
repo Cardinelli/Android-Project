@@ -12,9 +12,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.androidproject.R
 import com.example.androidproject.ui.data.Game
+import com.example.androidproject.ui.data.GameRepository
 import com.example.androidproject.ui.home.HomeRecyclerViewAdapter
+import com.google.android.material.snackbar.Snackbar
 
-class FavouritesFragment : Fragment() {
+class FavouritesFragment : Fragment(),
+    FavouritesRecyclerViewAdapter.RemoveButtonClickListener {
     private lateinit var fragmentView: View
     private lateinit var recyclerViewFavourites: RecyclerView
 
@@ -43,7 +46,8 @@ class FavouritesFragment : Fragment() {
                 recyclerViewFavourites.adapter = context?.let { it1 ->
                     FavouritesRecyclerViewAdapter(
                         it,
-                        it1
+                        it1,
+                        this@FavouritesFragment
                     )
                 }
             }
@@ -56,5 +60,12 @@ class FavouritesFragment : Fragment() {
 
     private fun emptyGames(empty: Boolean = true) {
         recyclerViewFavourites.visibility = if (empty) View.GONE else View.VISIBLE
+    }
+
+    override fun onRemoveButtonClickListener(game: Game, view: View) {
+        context?.let {
+            GameRepository.deleteGame(it, game)
+        }
+        Snackbar.make(view, R.string.remove_game_from_favourites, Snackbar.LENGTH_SHORT).show()
     }
 }

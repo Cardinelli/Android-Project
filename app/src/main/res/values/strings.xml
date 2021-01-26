@@ -18,5 +18,6 @@
     <string name="auth_register">Register</string>
 
     <string name="add_game_to_favourites">"Game Added To Favourites"</string>
+    <string name="remove_game_from_favourites">"Game has been removed"</string>
     <string name="game_exists">"Game already is in your favourites list"</string>
 </resources>
