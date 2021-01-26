@@ -20,6 +20,7 @@ class FavouritesFragment : Fragment(),
     FavouritesRecyclerViewAdapter.RemoveButtonClickListener {
     private lateinit var fragmentView: View
     private lateinit var recyclerViewFavourites: RecyclerView
+    private lateinit var emptyGames: TextView
 
     private var games: List<Game> = emptyList()
 
@@ -34,6 +35,7 @@ class FavouritesFragment : Fragment(),
         fragmentView = inflater.inflate(R.layout.fragment_favourites, container, false)
 
         recyclerViewFavourites = fragmentView.findViewById(R.id.favourites_recycler_view)
+        emptyGames = fragmentView.findViewById(R.id.empty_games_text)
 
         favouritesViewModel.gamesLiveData.observe(viewLifecycleOwner, {
             if (it.isEmpty()) {
@@ -60,6 +62,7 @@ class FavouritesFragment : Fragment(),
 
     private fun emptyGames(empty: Boolean = true) {
         recyclerViewFavourites.visibility = if (empty) View.GONE else View.VISIBLE
+        emptyGames.visibility = if (empty) View.VISIBLE else View.GONE
     }
 
     override fun onRemoveButtonClickListener(game: Game, view: View) {

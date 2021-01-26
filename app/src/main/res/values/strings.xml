@@ -20,4 +20,5 @@
     <string name="add_game_to_favourites">"Game Added To Favourites"</string>
     <string name="remove_game_from_favourites">"Game has been removed"</string>
     <string name="game_exists">"Game already is in your favourites list"</string>
+    <string name="empty_games">You have not favourite games</string>
 </resources>
