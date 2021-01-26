@@ -21,20 +21,12 @@ class FavouritesRecyclerViewAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-//        val game = list[position]
+        val game = list[position]
+        holder.nameTextView.text = game.name
 
-//        Glide.with(context)
-//            .load(game.background_image)
-//            .into(holder.itemView.findViewById(R.id.game_banner))
-
-
-//        holder.itemView.findViewById<ImageView>(R.id.favourites_game_banner).setOnClickListener {
-//            holder.itemView.context.startActivity(
-//                Intent(holder.itemView.context, HomeInfoViewHolder::class.java).apply {
-//                    putExtra("game_pos", position.toString())
-//                }
-//            )
-//        }
+        Glide.with(context)
+            .load(game.background_image)
+            .into(holder.itemView.findViewById(R.id.favourites_game_banner))
     }
 
     override fun getItemCount(): Int = list.size
