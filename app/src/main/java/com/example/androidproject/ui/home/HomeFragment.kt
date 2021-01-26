@@ -1,6 +1,7 @@
 package com.example.androidproject.ui.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +10,9 @@ import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.example.androidproject.R
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(),
+    HomeRecyclerViewAdapter.AddButtonClickListener {
+
     private lateinit var fragmentView: View
     private lateinit var recyclerViewHome: RecyclerView
 
@@ -22,7 +25,6 @@ class HomeFragment : Fragment() {
     ): View {
         setHasOptionsMenu(true)
         fragmentView = inflater.inflate(R.layout.fragment_home, container, false)
-
         recyclerViewHome = fragmentView.findViewById(R.id.home_recycler_view)
 
 
@@ -33,12 +35,18 @@ class HomeFragment : Fragment() {
                 recyclerViewHome.adapter = context?.let { it1 ->
                     HomeRecyclerViewAdapter(
                         it as ArrayList<GameInfo>,
-                        it1
+                        it1,
+                        this@HomeFragment
                     )
                 }
             }
         })
+
         homeViewModel.getGames()
         return fragmentView
+    }
+
+    override fun onAddButtonClickListener(game: GameInfo) {
+        // TODO IMPLEMENT ACTION TO VIEW GAME
     }
 }
