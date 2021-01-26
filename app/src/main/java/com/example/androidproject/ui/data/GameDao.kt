@@ -8,6 +8,9 @@ interface GameDao {
     @Query("SELECT * FROM game")
     fun getAll(): List<Game>
 
+    @Query("SELECT * FROM game WHERE name LIKE :name")
+    fun getGameByName(name: String): Game
+
     @Insert
     fun insertGame(game: Game)
 

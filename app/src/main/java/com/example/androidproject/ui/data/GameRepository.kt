@@ -16,6 +16,12 @@ class GameRepository {
             return database!!.getGameDao().getAll()
         }
 
+        fun getGameByName(context: Context, name: String): Game {
+            database = GameDatabase.getDatabase(context)
+
+            return database!!.getGameDao().getGameByName(name)
+        }
+
         fun insertGame(context: Context, game: Game) {
             database = GameDatabase.getDatabase(context)
 

@@ -32,7 +32,7 @@ class HomeRecyclerViewAdapter(
             .into(holder.itemView.findViewById(R.id.game_banner))
 
         holder.add_btn.setOnClickListener {
-            Log.d("55555", "some shit here")
+            addButtonClickListener.onAddButtonClickListener(game, holder.itemView)
         }
 
     }
@@ -46,6 +46,6 @@ class HomeRecyclerViewAdapter(
     }
 
     interface AddButtonClickListener {
-        fun onAddButtonClickListener(game: GameInfo)
+        fun onAddButtonClickListener(game: GameInfo, view: View)
     }
 }

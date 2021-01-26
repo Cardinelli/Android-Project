@@ -9,6 +9,9 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.example.androidproject.R
+import com.example.androidproject.ui.data.Game
+import com.example.androidproject.ui.data.GameRepository
+import com.google.android.material.snackbar.Snackbar
 
 class HomeFragment : Fragment(),
     HomeRecyclerViewAdapter.AddButtonClickListener {
@@ -46,7 +49,22 @@ class HomeFragment : Fragment(),
         return fragmentView
     }
 
-    override fun onAddButtonClickListener(game: GameInfo) {
-        // TODO IMPLEMENT ACTION TO VIEW GAME
+    override fun onAddButtonClickListener(game: GameInfo, view: View) {
+        context?.let {
+            val gameExists = GameRepository.getGameByName(it, game.name)
+            if (gameExists == null) {
+                GameRepository.insertGame(
+                    it, Game(
+                        game.name,
+                        game.released,
+                        game.background_image,
+                        game.rating,
+                    )
+                )
+                Snackbar.make(view, R.string.add_game_to_favourites, Snackbar.LENGTH_SHORT).show()
+            } else {
+                Snackbar.make(view, R.string.game_exists, Snackbar.LENGTH_SHORT).show()
+            }
+        }
     }
 }
