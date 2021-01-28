@@ -24,4 +24,8 @@
     <string name="game_name">Name</string>
     <string name="release_date">Release Date</string>
     <string name="rating">Rating</string>
+    <string name="login_btn">Login</string>
+
+    <string name="tab_register">Register</string>
+    <string name="tab_login">Login</string>
 </resources>
