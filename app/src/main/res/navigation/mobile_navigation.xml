@@ -32,7 +32,7 @@
 
     <fragment
         android:id="@+id/nav_game_view"
-        android:name="com.example.androidproject.ui.home.GameInfoFragment"
+        android:name="com.example.androidproject.ui.game.GameInfoFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_game_view" />
 

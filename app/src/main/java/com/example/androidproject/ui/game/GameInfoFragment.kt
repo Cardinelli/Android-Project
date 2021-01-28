@@ -1,4 +1,4 @@
-package com.example.androidproject.ui.home
+package com.example.androidproject.ui.game
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,7 +11,6 @@ import androidx.navigation.navGraphViewModels
 import com.bumptech.glide.Glide
 import com.example.androidproject.R
 import com.example.androidproject.ui.data.Game
-import com.example.androidproject.ui.game.GameViewModel
 
 class GameInfoFragment : Fragment() {
     private lateinit var gameViewName: TextView
