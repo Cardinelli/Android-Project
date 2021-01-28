@@ -38,9 +38,6 @@ class LoginFragment : Fragment() {
         passwordInput = fragmentView.findViewById(R.id.password)
 
         auth = Firebase.auth
-        auth.currentUser?.let {
-            Toast.makeText(context, "Hello ${it.uid}", Toast.LENGTH_SHORT).show()
-        }
 
         loginButton.setOnClickListener {
             val email = emailInput.text.toString()
@@ -57,9 +54,14 @@ class LoginFragment : Fragment() {
                 .addOnCompleteListener(it) { task ->
                     if (task.isSuccessful) {
                         val user = auth.currentUser
-                        fragmentView.findNavController().navigate(R.id.action_auth_view_to_fragment_home)
+                        fragmentView.findNavController()
+                            .navigate(R.id.action_auth_view_to_fragment_home)
                     } else {
-                        Toast.makeText(fragmentView.context, task.exception.toString(), Toast.LENGTH_SHORT)
+                        Toast.makeText(
+                            fragmentView.context,
+                            task.exception.toString(),
+                            Toast.LENGTH_SHORT
+                        )
                             .show()
                     }
                 }

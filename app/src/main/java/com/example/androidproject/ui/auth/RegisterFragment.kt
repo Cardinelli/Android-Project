@@ -37,9 +37,6 @@ class RegisterFragment : Fragment() {
         passwordInput = root.findViewById(R.id.password)
 
         auth = Firebase.auth
-        auth.currentUser?.let {
-            Toast.makeText(context, "Hello ${it.uid}", Toast.LENGTH_SHORT).show()
-        }
 
         registerButton.setOnClickListener {
             val email = emailInput.text.toString()

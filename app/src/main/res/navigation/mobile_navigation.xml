@@ -43,4 +43,8 @@
     <action
         android:id="@+id/action_list_view_to_game_view"
         app:destination="@id/nav_game_view" />
+
+    <action
+        android:id="@+id/action_list_view_auth_view"
+        app:destination="@id/nav_auth" />
 </navigation>
