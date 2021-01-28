@@ -30,7 +30,17 @@
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_settings" />
 
+    <fragment
+        android:id="@+id/nav_game_view"
+        android:name="com.example.androidproject.ui.home.GameInfoFragment"
+        android:label="@string/menu_slideshow"
+        tools:layout="@layout/fragment_game_view" />
+
     <action
         android:id="@+id/action_auth_view_to_fragment_home"
         app:destination="@id/nav_home" />
+
+    <action
+        android:id="@+id/action_list_view_to_game_view"
+        app:destination="@id/nav_game_view" />
 </navigation>

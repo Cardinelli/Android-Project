@@ -17,6 +17,10 @@ class HomeViewModel : ViewModel() {
     val gamesLiveData: LiveData<ArrayList<GameInfo>>
         get() = _gamesLiveData
 
+    private val _gameLiveData = MutableLiveData<GameInfo>()
+    val gameLiveData: LiveData<GameInfo>
+        get() = _gameLiveData
+
     fun getGames() {
         val retrofit = Retrofit.Builder()
             .baseUrl("https://my-json-server.typicode.com/Cardinelli/repo/")
@@ -50,5 +54,9 @@ class HomeViewModel : ViewModel() {
                 Log.d("Retrofit Failed", "Error")
             }
         })
+    }
+
+    fun postGame(game: GameInfo?) {
+        _gameLiveData.postValue(game)
     }
 }

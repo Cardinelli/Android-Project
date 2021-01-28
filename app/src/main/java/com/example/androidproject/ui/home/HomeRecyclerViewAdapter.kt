@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -14,7 +15,8 @@ import com.example.androidproject.R
 class HomeRecyclerViewAdapter(
     private val list: ArrayList<GameInfo>,
     private val context: Context,
-    private val addButtonClickListener: AddButtonClickListener
+    private val addButtonClickListener: AddButtonClickListener,
+    private val viewButtonClickListener: ViewButtonClickListener,
 ) : RecyclerView.Adapter<HomeRecyclerViewAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view =
@@ -35,6 +37,10 @@ class HomeRecyclerViewAdapter(
             addButtonClickListener.onAddButtonClickListener(game, holder.itemView)
         }
 
+        holder.gameBanner.setOnClickListener {
+            viewButtonClickListener.onViewButtonClickListener(game)
+        }
+
     }
 
     override fun getItemCount(): Int = list.size
@@ -42,10 +48,15 @@ class HomeRecyclerViewAdapter(
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val add_btn: Button = view.findViewById(R.id.btn_add)
+        val gameBanner: ImageView = view.findViewById(R.id.game_banner)
         var gameTitle: TextView = view.findViewById(R.id.home_text_view)
     }
 
     interface AddButtonClickListener {
         fun onAddButtonClickListener(game: GameInfo, view: View)
+    }
+
+    interface ViewButtonClickListener {
+        fun onViewButtonClickListener(game: GameInfo)
     }
 }

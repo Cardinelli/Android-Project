@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.example.androidproject.R
@@ -14,7 +15,8 @@ import com.example.androidproject.ui.data.GameRepository
 import com.google.android.material.snackbar.Snackbar
 
 class HomeFragment : Fragment(),
-    HomeRecyclerViewAdapter.AddButtonClickListener {
+    HomeRecyclerViewAdapter.AddButtonClickListener,
+    HomeRecyclerViewAdapter.ViewButtonClickListener {
 
     private lateinit var fragmentView: View
     private lateinit var recyclerViewHome: RecyclerView
@@ -39,6 +41,7 @@ class HomeFragment : Fragment(),
                     HomeRecyclerViewAdapter(
                         it as ArrayList<GameInfo>,
                         it1,
+                        this@HomeFragment,
                         this@HomeFragment
                     )
                 }
@@ -66,5 +69,10 @@ class HomeFragment : Fragment(),
                 Snackbar.make(view, R.string.game_exists, Snackbar.LENGTH_SHORT).show()
             }
         }
+    }
+
+    override fun onViewButtonClickListener(game: GameInfo) {
+        homeViewModel.postGame(game)
+        fragmentView.findNavController().navigate(R.id.action_list_view_to_game_view)
     }
 }
