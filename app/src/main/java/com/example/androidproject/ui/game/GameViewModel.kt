@@ -1,9 +1,12 @@
-package com.example.androidproject.ui.home
+package com.example.androidproject.ui.game
 
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.androidproject.ui.data.Game
+import com.example.androidproject.ui.data.GameRepository
 import com.example.androidproject.ui.home.service.HomeService
 import okhttp3.OkHttpClient
 import retrofit2.Call
@@ -12,14 +15,15 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class HomeViewModel : ViewModel() {
-    private val _gamesLiveData = MutableLiveData<ArrayList<GameInfo>>()
-    val gamesLiveData: LiveData<ArrayList<GameInfo>>
+class GameViewModel : ViewModel() {
+    private val _gamesLiveData = MutableLiveData<ArrayList<Game>>()
+    val gamesLiveData: LiveData<ArrayList<Game>>
         get() = _gamesLiveData
 
-    private val _gameLiveData = MutableLiveData<GameInfo>()
-    val gameLiveData: LiveData<GameInfo>
+    private val _gameLiveData = MutableLiveData<Game>()
+    val gameLiveData: LiveData<Game>
         get() = _gameLiveData
+
 
     fun getGames() {
         val retrofit = Retrofit.Builder()
@@ -35,10 +39,10 @@ class HomeViewModel : ViewModel() {
 
         val homeService = retrofit.create(HomeService::class.java)
 
-        homeService.getGames().enqueue(object : Callback<ArrayList<GameInfo>> {
+        homeService.getGames().enqueue(object : Callback<ArrayList<Game>> {
             override fun onResponse(
-                call: Call<ArrayList<GameInfo>>,
-                response: Response<ArrayList<GameInfo>>
+                call: Call<ArrayList<Game>>,
+                response: Response<ArrayList<Game>>
             ) {
                 if (response.isSuccessful) {
                     response.body()?.let {
@@ -49,14 +53,22 @@ class HomeViewModel : ViewModel() {
                 }
             }
 
-            override fun onFailure(call: Call<ArrayList<GameInfo>>, t: Throwable) {
+            override fun onFailure(call: Call<ArrayList<Game>>, t: Throwable) {
                 Log.d("FAIL", t.toString())
                 Log.d("Retrofit Failed", "Error")
             }
         })
     }
 
-    fun postGame(game: GameInfo?) {
+    fun postGame(game: Game?) {
         _gameLiveData.postValue(game)
+    }
+
+    fun postGames(games: List<Game>?) {
+        _gamesLiveData.postValue(games as ArrayList<Game>?)
+    }
+
+    fun getGames(context: Context) {
+        postGames(GameRepository.getGames(context))
     }
 }

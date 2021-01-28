@@ -10,6 +10,8 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.navGraphViewModels
 import com.bumptech.glide.Glide
 import com.example.androidproject.R
+import com.example.androidproject.ui.data.Game
+import com.example.androidproject.ui.game.GameViewModel
 
 class GameInfoFragment : Fragment() {
     private lateinit var gameViewName: TextView
@@ -17,8 +19,8 @@ class GameInfoFragment : Fragment() {
     private lateinit var gameRating: TextView
     private lateinit var gameBanner: ImageView
 
-    private var game: GameInfo? = null
-    private val homeViewModel: HomeViewModel by navGraphViewModels(R.id.mobile_navigation)
+    private var game: Game? = null
+    private val gameViewModel: GameViewModel by navGraphViewModels(R.id.mobile_navigation)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +39,7 @@ class GameInfoFragment : Fragment() {
         gameReleaseDate = view.findViewById(R.id.release_date)
         gameBanner = view.findViewById(R.id.game_info_banner)
 
-        homeViewModel.gameLiveData.observe(viewLifecycleOwner, {
+        gameViewModel.gameLiveData.observe(viewLifecycleOwner, {
             with(it) {
                 game = this
                 gameViewName.text = name

@@ -1,7 +1,6 @@
 package com.example.androidproject.ui.home
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,16 +11,18 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.androidproject.R
 import com.example.androidproject.ui.data.Game
 import com.example.androidproject.ui.data.GameRepository
+import com.example.androidproject.ui.game.GameRecyclerViewAdapter
+import com.example.androidproject.ui.game.GameViewModel
 import com.google.android.material.snackbar.Snackbar
 
 class HomeFragment : Fragment(),
-    HomeRecyclerViewAdapter.AddButtonClickListener,
-    HomeRecyclerViewAdapter.ViewButtonClickListener {
+    GameRecyclerViewAdapter.AddButtonClickListener,
+    GameRecyclerViewAdapter.ViewButtonClickListener {
 
     private lateinit var fragmentView: View
     private lateinit var recyclerViewHome: RecyclerView
 
-    private val homeViewModel: HomeViewModel by navGraphViewModels(R.id.mobile_navigation)
+    private val gameViewModel: GameViewModel by navGraphViewModels(R.id.mobile_navigation)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,27 +33,27 @@ class HomeFragment : Fragment(),
         fragmentView = inflater.inflate(R.layout.fragment_home, container, false)
         recyclerViewHome = fragmentView.findViewById(R.id.home_recycler_view)
 
-
-        homeViewModel.gamesLiveData.observe(viewLifecycleOwner, {
+        gameViewModel.gamesLiveData.observe(viewLifecycleOwner, {
             if (it.isEmpty()) {
-                emptyList<GameInfo>()
+                emptyList<Game>()
             } else {
                 recyclerViewHome.adapter = context?.let { it1 ->
-                    HomeRecyclerViewAdapter(
-                        it as ArrayList<GameInfo>,
+                    GameRecyclerViewAdapter(
+                        it as ArrayList<Game>,
                         it1,
+                        false,
+                        null,
                         this@HomeFragment,
-                        this@HomeFragment
+                        this@HomeFragment,
                     )
                 }
             }
         })
-
-        homeViewModel.getGames()
+        gameViewModel.getGames()
         return fragmentView
     }
 
-    override fun onAddButtonClickListener(game: GameInfo, view: View) {
+    override fun onAddButtonClickListener(game: Game, view: View) {
         context?.let {
             val gameExists = GameRepository.getGameByName(it, game.name)
             if (gameExists == null) {
@@ -71,8 +72,8 @@ class HomeFragment : Fragment(),
         }
     }
 
-    override fun onViewButtonClickListener(game: GameInfo) {
-        homeViewModel.postGame(game)
+    override fun onViewButtonClickListener(game: Game) {
+        gameViewModel.postGame(game)
         fragmentView.findNavController().navigate(R.id.action_list_view_to_game_view)
     }
 }

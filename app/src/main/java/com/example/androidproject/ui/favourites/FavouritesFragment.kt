@@ -4,27 +4,28 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import androidx.navigation.navGraphViewModels
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.androidproject.R
 import com.example.androidproject.ui.data.Game
 import com.example.androidproject.ui.data.GameRepository
-import com.example.androidproject.ui.home.HomeRecyclerViewAdapter
+import com.example.androidproject.ui.game.GameRecyclerViewAdapter
+import com.example.androidproject.ui.game.GameViewModel
 import com.google.android.material.snackbar.Snackbar
 
 class FavouritesFragment : Fragment(),
-    FavouritesRecyclerViewAdapter.RemoveButtonClickListener {
+    GameRecyclerViewAdapter.RemoveButtonClickListener,
+    GameRecyclerViewAdapter.ViewButtonClickListener {
     private lateinit var fragmentView: View
     private lateinit var recyclerViewFavourites: RecyclerView
     private lateinit var emptyGames: TextView
 
     private var games: List<Game> = emptyList()
 
-    private val favouritesViewModel: FavouritesViewModel by navGraphViewModels(R.id.mobile_navigation)
+    private val gameViewModel: GameViewModel by navGraphViewModels(R.id.mobile_navigation)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,7 +38,7 @@ class FavouritesFragment : Fragment(),
         recyclerViewFavourites = fragmentView.findViewById(R.id.favourites_recycler_view)
         emptyGames = fragmentView.findViewById(R.id.empty_games_text)
 
-        favouritesViewModel.gamesLiveData.observe(viewLifecycleOwner, {
+        gameViewModel.gamesLiveData.observe(viewLifecycleOwner, {
             if (it.isEmpty()) {
                 emptyGames()
             } else {
@@ -46,16 +47,19 @@ class FavouritesFragment : Fragment(),
                 games = it
 
                 recyclerViewFavourites.adapter = context?.let { it1 ->
-                    FavouritesRecyclerViewAdapter(
+                    GameRecyclerViewAdapter(
                         it,
                         it1,
+                        true,
+                        this@FavouritesFragment,
+                        null,
                         this@FavouritesFragment
                     )
                 }
             }
         })
 
-        context?.let { favouritesViewModel.getGames(it) }
+        context?.let { gameViewModel.getGames(it) }
 
         return fragmentView
     }
@@ -70,5 +74,10 @@ class FavouritesFragment : Fragment(),
             GameRepository.deleteGame(it, game)
         }
         Snackbar.make(view, R.string.remove_game_from_favourites, Snackbar.LENGTH_SHORT).show()
+    }
+
+    override fun onViewButtonClickListener(game: Game) {
+        gameViewModel.postGame(game)
+        fragmentView.findNavController().navigate(R.id.action_list_view_to_game_view)
     }
 }
