@@ -9,6 +9,14 @@
     <color name="dark_gray">#23272a</color>
     <color name="gray">#2c2f33</color>
     <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
     <color name="red">#FA0000</color>
+
+
+    <!--  My Colors  -->
+    <color name="blurple"> #7289DA </color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="dark"> #2C2F33 </color>
+    <color name="btn_green"> #42B67F </color>
+    <color name="quite_black"> #23272A </color>
+
 </resources>
