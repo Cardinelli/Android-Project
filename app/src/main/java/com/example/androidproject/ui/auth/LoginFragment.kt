@@ -60,7 +60,7 @@ class LoginFragment : Fragment() {
                     } else {
                         Toast.makeText(
                             fragmentView.context,
-                            task.exception.toString(),
+                            "Authentication failed: ${task.exception?.message.toString()}",
                             Toast.LENGTH_SHORT
                         )
                             .show()
