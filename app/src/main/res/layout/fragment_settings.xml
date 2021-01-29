@@ -18,15 +18,4 @@
         android:paddingRight="10dp"
         android:text="Deactivate Account" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/deactivate_btnm"
-        android:layout_width="wrap_content"
-        android:layout_height="35dp"
-        android:layout_marginLeft="25dp"
-        android:layout_marginTop="25dp"
-        android:background="@drawable/sample_button"
-        android:textColor="@color/white"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:text="Report A Problem" />
 </LinearLayout>

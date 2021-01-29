@@ -1,6 +1,7 @@
 package com.example.androidproject.ui.auth
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +18,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
 class RegisterFragment : Fragment() {
+    private lateinit var fragmentView: View
     private lateinit var favouritesViewModel: AuthViewModel
     private lateinit var emailInput: TextView
     private lateinit var passwordInput: TextView
@@ -31,11 +33,11 @@ class RegisterFragment : Fragment() {
     ): View? {
         favouritesViewModel =
             ViewModelProvider(this).get(AuthViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_auth_register, container, false)
+        fragmentView = inflater.inflate(R.layout.fragment_auth_register, container, false)
 
-        registerButton = root.findViewById(R.id.register_btn)
-        emailInput = root.findViewById(R.id.username)
-        passwordInput = root.findViewById(R.id.password)
+        registerButton = fragmentView.findViewById(R.id.register_btn)
+        emailInput = fragmentView.findViewById(R.id.username)
+        passwordInput = fragmentView.findViewById(R.id.password)
 
         auth = Firebase.auth
 
@@ -44,10 +46,8 @@ class RegisterFragment : Fragment() {
             val password = passwordInput.text.toString()
 
             register(email, password)
-
-            it.findNavController().navigate(R.id.action_auth_view_to_fragment_home)
         }
-        return root
+        return fragmentView
     }
 
     private fun register(email: String, password: String) {
@@ -56,9 +56,10 @@ class RegisterFragment : Fragment() {
                 .addOnCompleteListener(it) { task ->
                     if (task.isSuccessful) {
                         (activity as MainActivity?)!!.updateUiState(auth.currentUser)
+                        fragmentView.findNavController().navigate(R.id.action_auth_view_to_fragment_home)
                     } else {
                         Toast.makeText(
-                            context, "Authentication failed.",
+                            context, "Authentication failed: ${task.exception?.message.toString()}",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
