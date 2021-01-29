@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import com.example.androidproject.MainActivity
 import com.example.androidproject.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -54,8 +55,7 @@ class RegisterFragment : Fragment() {
             auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(it) { task ->
                     if (task.isSuccessful) {
-                        val user = auth.currentUser
-                        Toast.makeText(context, "Hello ${user?.uid}", Toast.LENGTH_SHORT).show()
+                        (activity as MainActivity?)!!.updateUiState(auth.currentUser)
                     } else {
                         Toast.makeText(
                             context, "Authentication failed.",

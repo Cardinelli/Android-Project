@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import com.example.androidproject.MainActivity
 import com.example.androidproject.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -53,7 +54,7 @@ class LoginFragment : Fragment() {
             auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(it) { task ->
                     if (task.isSuccessful) {
-                        val user = auth.currentUser
+                        (activity as MainActivity?)!!.updateUiState(auth.currentUser)
                         fragmentView.findNavController()
                             .navigate(R.id.action_auth_view_to_fragment_home)
                     } else {
