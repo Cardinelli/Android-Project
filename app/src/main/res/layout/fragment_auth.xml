@@ -10,6 +10,10 @@
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:tabTextColor="@color/white"
+        app:tabSelectedTextColor="@color/blurple"
+        app:tabIndicatorColor="@color/blurple"
+        app:tabRippleColor="@color/blurple"
         android:background="@color/quite_black" />
 
 </androidx.viewpager.widget.ViewPager>
