@@ -29,4 +29,5 @@
     <string name="tab_register">Register</string>
     <string name="tab_login">Login</string>
     <string name="deactivate_acc">Deactivate</string>
+    <string name="settings">Settings</string>
 </resources>
