@@ -81,6 +81,9 @@ class MainActivity : AppCompatActivity() {
             actionBar?.setHomeButtonEnabled(true)
             drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
             navView.visibility = View.VISIBLE
+
+            val headerView = navView.getHeaderView(0)
+            headerView.findViewById<TextView>(R.id.profile_email).text = user.email
         } ?: run {
             actionBar?.setHomeButtonEnabled(false)
             drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
