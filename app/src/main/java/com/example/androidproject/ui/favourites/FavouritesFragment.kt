@@ -15,6 +15,8 @@ import com.example.androidproject.ui.data.GameRepository
 import com.example.androidproject.ui.game.GameRecyclerViewAdapter
 import com.example.androidproject.ui.game.GameViewModel
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 class FavouritesFragment : Fragment(),
     GameRecyclerViewAdapter.RemoveButtonClickListener,
@@ -59,7 +61,8 @@ class FavouritesFragment : Fragment(),
             }
         })
 
-        context?.let { gameViewModel.getGames(it) }
+        val uid = Firebase.auth.currentUser!!.uid
+        context?.let { gameViewModel.getGamesByUser(it, uid) }
 
         return fragmentView
     }

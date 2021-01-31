@@ -71,4 +71,8 @@ class GameViewModel : ViewModel() {
     fun getGames(context: Context) {
         postGames(GameRepository.getGames(context))
     }
+
+    fun getGamesByUser(context: Context, user_id: String) {
+        postGames(GameRepository.getGameByUser(context, user_id))
+    }
 }

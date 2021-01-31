@@ -14,6 +14,8 @@ import com.example.androidproject.ui.data.GameRepository
 import com.example.androidproject.ui.game.GameRecyclerViewAdapter
 import com.example.androidproject.ui.game.GameViewModel
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 class HomeFragment : Fragment(),
     GameRecyclerViewAdapter.AddButtonClickListener,
@@ -63,6 +65,7 @@ class HomeFragment : Fragment(),
                         game.released,
                         game.background_image,
                         game.rating,
+                        Firebase.auth.currentUser!!.uid
                     )
                 )
                 Snackbar.make(view, R.string.add_game_to_favourites, Snackbar.LENGTH_SHORT).show()

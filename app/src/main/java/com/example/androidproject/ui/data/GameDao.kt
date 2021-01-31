@@ -11,6 +11,9 @@ interface GameDao {
     @Query("SELECT * FROM game WHERE name LIKE :name")
     fun getGameByName(name: String): Game
 
+    @Query("SELECT * FROM game WHERE user_id = :user_id")
+    fun getGameByUser(user_id: String): List<Game>
+
     @Insert
     fun insertGame(game: Game)
 

@@ -22,6 +22,12 @@ class GameRepository {
             return database!!.getGameDao().getGameByName(name)
         }
 
+        fun getGameByUser(context: Context, user_id: String): List<Game> {
+            database = GameDatabase.getDatabase(context)
+
+            return database!!.getGameDao().getGameByUser(user_id)
+        }
+
         fun insertGame(context: Context, game: Game) {
             database = GameDatabase.getDatabase(context)
 
