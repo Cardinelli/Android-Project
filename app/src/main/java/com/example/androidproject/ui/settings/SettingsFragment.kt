@@ -6,20 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.example.androidproject.MainActivity
 import com.example.androidproject.R
+import com.example.androidproject.ui.data.GameRepository
 import com.google.firebase.auth.*
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import kotlin.properties.Delegates
 
 class SettingsFragment : Fragment() {
     private lateinit var auth: FirebaseAuth
@@ -39,7 +35,7 @@ class SettingsFragment : Fragment() {
 
         deactivateButton = fragmentView.findViewById(R.id.deactivate_btn)
         deactivateButton.setOnClickListener {
-           deactivateAccount(auth.currentUser)
+            deactivateAccount(auth.currentUser)
         }
 
         return fragmentView
@@ -52,6 +48,7 @@ class SettingsFragment : Fragment() {
                     .addOnCompleteListener(it) { task ->
                         if (task.isSuccessful) {
                             (activity as MainActivity?)!!.updateUiState(null)
+                            GameRepository.deleteGameByUser(it, user.uid)
                             fragmentView.findNavController()
                                 .navigate(R.id.action_list_view_auth_view)
                             Toast.makeText(

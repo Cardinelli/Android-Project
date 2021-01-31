@@ -57,7 +57,8 @@ class HomeFragment : Fragment(),
 
     override fun onAddButtonClickListener(game: Game, view: View) {
         context?.let {
-            val gameExists = GameRepository.getGameByName(it, game.name)
+            val gameExists =
+                GameRepository.getFavGameByUser(it, Firebase.auth.currentUser!!.uid, game.name)
             if (gameExists == null) {
                 GameRepository.insertGame(
                     it, Game(

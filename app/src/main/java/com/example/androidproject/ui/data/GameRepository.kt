@@ -28,6 +28,12 @@ class GameRepository {
             return database!!.getGameDao().getGameByUser(user_id)
         }
 
+        fun getFavGameByUser(context: Context, user_id: String, name: String): Game {
+            database = GameDatabase.getDatabase(context)
+
+            return database!!.getGameDao().getFavGameByUser(user_id, name)
+        }
+
         fun insertGame(context: Context, game: Game) {
             database = GameDatabase.getDatabase(context)
 
@@ -47,6 +53,11 @@ class GameRepository {
         fun deleteGame(context: Context, game: Game) {
             database = GameDatabase.getDatabase(context)
             database!!.getGameDao().deleteGame(game)
+        }
+
+        fun deleteGameByUser(context: Context, user_id: String) {
+            database = GameDatabase.getDatabase(context)
+            database!!.getGameDao().deleteGameByUser(user_id)
         }
     }
 }
