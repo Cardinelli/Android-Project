@@ -72,7 +72,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.main, menu)
+        auth = Firebase.auth
+        if (auth.currentUser != null) {
+            menuInflater.inflate(R.menu.main, menu)
+        }
         return true
     }
 
