@@ -6,11 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import com.bumptech.glide.Glide
 import com.example.androidproject.MainActivity
 import com.example.androidproject.R
 import com.google.firebase.auth.FirebaseAuth
@@ -23,6 +25,7 @@ class RegisterFragment : Fragment() {
     private lateinit var emailInput: TextView
     private lateinit var passwordInput: TextView
     private lateinit var registerButton: Button
+    private lateinit var firebaseImg: ImageView
 
     private lateinit var auth: FirebaseAuth
 
@@ -38,6 +41,11 @@ class RegisterFragment : Fragment() {
         registerButton = fragmentView.findViewById(R.id.register_btn)
         emailInput = fragmentView.findViewById(R.id.username)
         passwordInput = fragmentView.findViewById(R.id.password)
+        firebaseImg = fragmentView.findViewById(R.id.firebase_img_register)
+
+        Glide.with(this)
+            .load("https://1.bp.blogspot.com/-YIfQT6q8ZM4/Vzyq5z1B8HI/AAAAAAAAAAc/UmWSSMLKtKgtH7CACElUp12zXkrPK5UoACLcB/s1600/image00.png")
+            .into(firebaseImg);
 
         auth = Firebase.auth
 
@@ -56,7 +64,8 @@ class RegisterFragment : Fragment() {
                 .addOnCompleteListener(it) { task ->
                     if (task.isSuccessful) {
                         (activity as MainActivity?)!!.updateUiState(auth.currentUser)
-                        fragmentView.findNavController().navigate(R.id.action_auth_view_to_fragment_home)
+                        fragmentView.findNavController()
+                            .navigate(R.id.action_auth_view_to_fragment_home)
                     } else {
                         Toast.makeText(
                             context, "Authentication failed: ${task.exception?.message.toString()}",
